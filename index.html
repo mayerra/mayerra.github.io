@@ -8,7 +8,8 @@
      aparece al buscar tu nombre. Si algún día querés que sí aparezca,
      borrá la línea de abajo. -->
 <meta name="robots" content="noindex, nofollow">
-<title>Magdalena Ayerra — Hoja de ruta profesional</title>
+<meta name="description" content="CV · Magdalena Ayerra">
+<title>Magdalena Ayerra — CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Public+Sans:ital,wght@0,300..800;1,300..600&display=swap" rel="stylesheet">
@@ -264,10 +265,17 @@
   footer .stamp{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:right;line-height:1.9}
   @media (max-width:640px){footer .stamp{text-align:left}}
 
+  .signature{
+    margin-top:26px;text-align:center;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);opacity:.6;
+  }
+
   /* ---------- print ---------- */
   @media print{
     body{background:#fff;color:#000;padding:0;font-size:10.5pt}
     .controls,.path{display:none}
+    .signature{display:none}
     .topbar{padding:0}
     header.hero{padding:0}
     .hero h1{font-size:34pt}
@@ -386,6 +394,8 @@
     </div>
     <div class="stamp" id="foot-stamp"></div>
   </footer>
+
+  <div class="signature">Designed by Magdalena Ayerra</div>
 </div>
 
 <script>
