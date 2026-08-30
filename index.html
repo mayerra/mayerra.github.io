@@ -8,8 +8,8 @@
      aparece al buscar tu nombre. Si algún día querés que sí aparezca,
      borrá la línea de abajo. -->
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="CV · Magdalena Ayerra">
-<title>Magdalena Ayerra — CV</title>
+<meta name="description" content="CV · Magdalena Ayerra Luzuriaga">
+<title>Magdalena Ayerra Luzuriaga — CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Public+Sans:ital,wght@0,300..800;1,300..600&display=swap" rel="stylesheet">
@@ -96,7 +96,7 @@
 
   .hero h1{
     font-family:var(--display);font-weight:700;
-    font-size:clamp(44px,10.5vw,124px);
+    font-size:clamp(30px,6.6vw,78px);
     line-height:.88;letter-spacing:-.035em;margin:14px 0 0;
   }
   .hero h1 .surname{display:block;color:var(--green)}
@@ -278,7 +278,7 @@
     .signature{display:none}
     .topbar{padding:0}
     header.hero{padding:0}
-    .hero h1{font-size:34pt}
+    .hero h1{font-size:23pt}
     .hero h1 .surname{color:#000}
     .portrait-wrap{max-width:150px}
     section{margin-top:20pt;break-inside:avoid}
@@ -307,7 +307,7 @@
     <div class="hero-top" id="hero-top">
       <div>
         <div class="eyebrow eyebrow-g" id="hero-eyebrow"></div>
-        <h1>Magdalena<span class="surname">Ayerra</span></h1>
+        <h1>Magdalena<span class="surname">Ayerra Luzuriaga</span></h1>
         <p class="role-line" id="hero-role"></p>
         <p class="thesis" id="hero-thesis"></p>
         <p class="status-line" id="hero-status"></p>
@@ -887,7 +887,7 @@ function render(code){
   const showPhoto = PHOTO && (code !== 'en' || PHOTO_IN_ENGLISH);
   $('hero-top').classList.toggle('has-photo', !!showPhoto);
   $('photo-slot').innerHTML = showPhoto
-    ? `<div class="portrait-wrap"><img class="portrait" src="${PHOTO}" alt="Magdalena Ayerra"></div>`
+    ? `<div class="portrait-wrap"><img class="portrait" src="${PHOTO}" alt="Magdalena Ayerra Luzuriaga"></div>`
     : '';
 
   $('path-title').textContent = d.path.title;
