@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Descomunal — caso de estudio · Magdalena Ayerra</title>
+<meta name="description" content="Cuadro de seguimiento y propuesta de web para un programa público de economía social en Lleida, diseñados y construidos con asistentes de IA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Public+Sans:ital,wght@0,300..800;1,300..600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#DFE9E2;--card:#EAF1EB;--ink:#0E2A22;--ink-soft:#4C6459;
+    --green:#17604A;--green-mid:#3A8A70;--ochre:#8C5A2B;--rule:#B2C4B9;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Public Sans',system-ui,sans-serif;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:0 24px 96px}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  a{color:inherit}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  .eyebrow-g{color:var(--green)}
+
+  .topbar{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0 0;flex-wrap:wrap}
+  .back{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;border-bottom:1.5px solid transparent}
+  .back:hover{color:var(--green);border-bottom-color:var(--green)}
+  .controls{display:flex;gap:8px}
+  .btn{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 13px;border:1px solid var(--rule);background:transparent;color:var(--ink-soft);cursor:pointer;border-radius:2px}
+  .btn:hover{border-color:var(--green);color:var(--green)}
+  .btn[aria-pressed="true"]{background:var(--green);color:#F2F7F3;border-color:var(--green)}
+  .btn:focus-visible,.back:focus-visible,a:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+
+  header.hero{padding:48px 0 0}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,82px);line-height:.9;letter-spacing:-.035em;margin-top:14px}
+  .hero h1 span{display:block;color:var(--green)}
+  .lede{font-family:var(--display);font-size:clamp(17px,2.2vw,23px);font-weight:500;line-height:1.35;max-width:46ch;margin-top:24px}
+  .intro{margin-top:18px;max-width:64ch;color:var(--ink-soft);font-size:clamp(15px,1.6vw,17px)}
+  .intro strong{color:var(--ink);font-weight:600}
+  .ledger{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink);border-bottom:1px solid var(--rule);margin-top:44px}
+  .ledger-item{padding:18px 18px 18px 0}
+  .ledger-item+.ledger-item{padding-left:18px;border-left:1px solid var(--rule)}
+  .ledger-num{font-family:var(--display);font-size:clamp(24px,3.4vw,38px);font-weight:700;letter-spacing:-.02em;color:var(--green);line-height:1}
+  .ledger-cap{font-size:12.5px;color:var(--ink-soft);margin-top:8px;line-height:1.4}
+
+  section{margin-top:84px}
+  .section-head{border-bottom:1.5px solid var(--ink);padding-bottom:14px;margin-bottom:30px}
+  h2{font-family:var(--display);font-size:clamp(24px,3.2vw,34px);font-weight:650;letter-spacing:-.015em;line-height:1.15;margin-top:6px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .prose p{color:var(--ink-soft);max-width:62ch}
+  .prose p+p{margin-top:14px}
+  .prose strong{color:var(--ink);font-weight:600}
+  .pull{font-family:var(--display);font-size:clamp(18px,2vw,22px);font-weight:500;line-height:1.35;border-left:2.5px solid var(--ochre);padding-left:18px}
+
+  .tool{margin-top:22px}
+  .tool-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+  .tool-head h3{font-family:var(--display);font-size:clamp(20px,2.4vw,26px);font-weight:650;letter-spacing:-.01em}
+  .tool-head a{font-size:13px;font-weight:700;color:var(--green);text-decoration:none;border-bottom:1.5px solid var(--green)}
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .shots.with-phone{grid-template-columns:2fr 1fr}
+  figure{background:var(--card);border:1px solid var(--rule);border-radius:2px;padding:10px}
+  figure a{display:block}
+  figure img{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:1px}
+  figcaption{font-size:12.5px;color:var(--ink-soft);margin-top:9px;line-height:1.45}
+  figure.phone img{max-width:300px;margin:0 auto}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .card{background:var(--card);border:1px solid var(--rule);border-left:2.5px solid var(--green-mid);padding:20px 20px 22px;border-radius:2px}
+  .card.c-ochre{border-left-color:var(--ochre)}
+  .card h4{font-family:var(--display);font-size:17px;font-weight:650;line-height:1.25}
+  .card p{font-size:14px;color:var(--ink-soft);margin-top:9px}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .stack span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;background:rgba(23,96,74,.12);color:var(--green);border-radius:2px}
+  .steps{border-top:1px solid var(--rule);margin-top:26px}
+  .step{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:15px 0;border-bottom:1px solid var(--rule)}
+  .step .when{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .step .what{font-size:15px}
+  .step .what span{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:3px}
+
+  footer{margin-top:88px;padding-top:30px;border-top:1.5px solid var(--ink);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+  footer .contact a{display:block;font-family:var(--display);font-size:clamp(17px,2.4vw,23px);font-weight:600;text-decoration:none;margin-top:6px;width:fit-content;border-bottom:1.5px solid transparent}
+  footer .contact a:hover{color:var(--green);border-bottom-color:var(--green)}
+  footer .note{font-size:12px;color:var(--ink-soft);max-width:42ch}
+
+  @media (max-width:820px){
+    .cols,.grid2,.shots,.shots.with-phone{grid-template-columns:1fr}
+    .ledger{grid-template-columns:1fr 1fr}
+    .ledger-item:nth-child(3){padding-left:0;border-left:0}
+    .ledger-item:nth-child(n+3){border-top:1px solid var(--rule)}
+    .step{grid-template-columns:1fr;gap:4px}
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .controls,.back{display:none}
+    section,figure,.card{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back" href="../" id="back"></a>
+  <div class="controls" role="group" aria-label="Idioma">
+    <button class="btn" id="btn-es" aria-pressed="true">ES</button>
+    <button class="btn" id="btn-en" aria-pressed="false">EN</button>
+    <button class="btn" id="btn-ca" aria-pressed="false">CA</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow eyebrow-g" id="eyebrow"></div>
+    <h1>La Descomunal<span id="h1-sub"></span></h1>
+    <p class="lede" id="lede"></p>
+    <p class="intro" id="intro"></p>
+    <div class="ledger" id="ledger"></div>
+  </header>
+
+  <section>
+    <div class="section-head"><div class="eyebrow" id="ctx-eyebrow"></div><h2 id="ctx-title"></h2></div>
+    <div class="cols">
+      <div class="prose" id="ctx-text"></div>
+      <div><p class="pull" id="ctx-pull"></p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div class="eyebrow" id="dash-eyebrow"></div><h2 id="dash-title"></h2></div>
+    <div class="prose" id="dash-text"></div>
+    <div class="tool">
+      <div class="shots" id="dash-shots"></div>
+    </div>
+    <div class="grid2" id="dash-decisions" style="margin-top:26px"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><div class="eyebrow" id="web-eyebrow"></div><h2 id="web-title"></h2></div>
+    <div class="tool">
+      <div class="tool-head"><div class="prose" id="web-text"></div></div>
+      <div class="shots with-phone" id="web-shots"></div>
+      <p style="margin-top:16px"><a class="tool-link" id="web-link" href="https://mayerra.github.io/ladescomunal/" target="_blank" rel="noopener"></a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div class="eyebrow" id="how-eyebrow"></div><h2 id="how-title"></h2></div>
+    <div class="cols">
+      <div class="prose" id="how-text"></div>
+      <div>
+        <div class="eyebrow" id="stack-title"></div>
+        <div class="stack" id="stack"></div>
+      </div>
+    </div>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><div class="eyebrow" id="next-eyebrow"></div><h2 id="next-title"></h2></div>
+    <div class="grid2" id="next-list"></div>
+  </section>
+
+  <footer>
+    <div class="contact">
+      <div class="eyebrow" id="foot-eyebrow"></div>
+      <a href="mailto:magdalena.ayerra@gmail.com">magdalena.ayerra@gmail.com</a>
+      <a href="https://www.linkedin.com/in/magdalena-ayerra" target="_blank" rel="noopener">linkedin.com/in/magdalena-ayerra</a>
+    </div>
+    <p class="note" id="foot-note"></p>
+  </footer>
+</main>
+
+<script>
+/* ============================================================
+   CASO DE ESTUDIO — textos en tres idiomas.
+   Para cambiar un texto, editalo en los tres bloques (es, en, ca).
+   Las capturas están en la carpeta img/.
+   ============================================================ */
+const SHOTS = {
+  resum:"img/seg-resum.webp", cronograma:"img/seg-cronograma.webp", detall:"img/seg-detall.webp",
+  pressupost:"img/seg-pressupost.webp", admin:"img/seg-admin.webp", mobil:"img/seg-mobil.webp",
+  webPortada:"img/web-portada.webp", webMobil:"img/web-mobil.webp"
+};
+
+const DATA = {
+  es:{
+    title:"La Descomunal — caso de estudio · Magdalena Ayerra",
+    back:"← Volver al CV",
+    eyebrow:"Caso de estudio · 2026",
+    h1sub:"herramientas para un programa público",
+    lede:"Diseñé y construí, con asistentes de IA, las herramientas digitales que el programa que coordino no tenía.",
+    intro:"La Descomunal es un programa de <strong>economía social y solidaria</strong> financiado por la Generalitat de Catalunya en los barrios más vulnerables de Lleida. Como co-coordinadora, necesitaba ver en un solo lugar <strong>cómo avanzan los proyectos, los indicadores y el presupuesto</strong>, y poder contarlo hacia fuera. No existía esa herramienta, así que la construí.",
+    ledger:[
+      {n:"9",c:"proyectos seguidos en un único cuadro"},
+      {n:"28",c:"indicadores con mínimo y óptimo comprometidos"},
+      {n:"5",c:"entidades del consorcio"},
+      {n:"350 K€",c:"de presupuesto en dos años, por entidad y año"}
+    ],
+    ctx:{eyebrow:"01 · El punto de partida",title:"Un programa exigente, sin herramientas a su medida",
+      text:["El programa reúne a cinco organizaciones —una cooperativa, una fundación educativa, un club deportivo, una asociación cultural y el Ayuntamiento— con nueve proyectos en marcha entre 2026 y 2028 y la obligación de <strong>justificar cada euro y cada indicador</strong> ante la Generalitat.",
+            "El seguimiento vivía repartido en documentos, correos y reuniones. El comité no tiene tiempo para leer informes largos, y la web oficial, gestionada por un proveedor externo, no la consultaba nadie."],
+      pull:"El reto no era técnico: era hacer visible el trabajo del programa para quien decide, con poco tiempo y sin depender de nadie."},
+    dash:{eyebrow:"02 · Herramienta en uso",title:"Cuadro de seguimiento del programa",
+      text:["Un panel web en catalán y castellano con cinco vistas: <strong>resumen</strong>, <strong>proyectos</strong> con su historial de actividades, <strong>cronograma</strong> 2026–2028, <strong>indicadores</strong> frente a sus mínimos y óptimos, y <strong>presupuesto</strong> por entidad y año. El equipo lo actualiza desde un área privada, sin tocar código."],
+      shots:[
+        {k:"resum",c:"Resumen: estado de los nueve proyectos y avance global."},
+        {k:"cronograma",c:"Cronograma 2026–2028 con el avance de cada proyecto e hitos."},
+        {k:"detall",c:"Ficha de proyecto con responsables, próxima fecha clave y actividades."},
+        {k:"pressupost",c:"Presupuesto con los importes ocultos (botón del ojo). Datos de ejemplo."},
+        {k:"admin",c:"Área de edición con contraseña: el equipo actualiza cifras y avisa si un año se pasa del presupuesto. Datos de ejemplo."},
+        {k:"mobil",c:"Versión móvil.",phone:true}
+      ],
+      decisions:[
+        {t:"Privacidad desde el diseño",d:"En las entidades con una sola persona contratada, mostrar las nóminas revelaría un sueldo. La web pública solo enseña el total por entidad y el reparto nóminas/actividades del conjunto; los importes se pueden ocultar con un clic."},
+        {t:"Editable por el equipo, sin depender de mí",d:"Un área con contraseña permite actualizar presupuesto, proyectos, indicadores y agenda. Cada guardado conserva la versión anterior (las últimas 50), así que un error se deshace."},
+        {t:"Datos en Europa",d:"Base de datos y servidor en Frankfurt: coherente con el RGPD y con un programa público catalán."},
+        {t:"Bilingüe y fuera de los buscadores",d:"Todo el contenido en catalán y castellano. La web no se indexa: se comparte con quien tiene que verla."}
+      ]},
+    web:{eyebrow:"03 · Propuesta",title:"Nueva web institucional",
+      text:["Rediseño completo de la web de La Descomunal: identidad visual, arquitectura de contenidos, versión en catalán y castellano y una página propia para Nova Essència, el proyecto de mujeres emprendedoras. Después la reconstruí con código fuente mantenible: <strong>menú adaptado a móvil</strong>, imágenes optimizadas (un cartel pasó de 1,4 MB a 93 KB) y publicación automática."],
+      shots:[{k:"webPortada",c:"Portada de la propuesta."},{k:"webMobil",c:"Menú en móvil.",phone:true}],
+      link:"Ver la propuesta publicada ↗"},
+    how:{eyebrow:"04 · Método",title:"Cómo lo construí",
+      text:["No soy desarrolladora. <strong>Yo defino qué hace falta, tomo las decisiones y compruebo el resultado</strong>; los asistentes de IA escriben el código. Empecé con prototipos en ChatGPT y Codex y después, con Claude, pasé todo a infraestructura propia: código en GitHub, publicación en Vercel y GitHub Pages, y base de datos en la UE.",
+            "Lo que más pesó no fue el código sino el criterio: qué datos mostrar y cuáles no, quién puede editar, cómo se recupera un error y cómo seguir sin mí."],
+      stackTitle:"Tecnología",
+      stack:["Next.js","React","Astro","Vercel","GitHub Pages","Upstash Redis (UE)","Claude","ChatGPT · Codex"],
+      steps:[
+        {w:"Agosto 2026",t:"Propuesta de web",s:"Diseño y primera versión, presentada al comité."},
+        {w:"Septiembre 2026",t:"Prototipo del cuadro de seguimiento",s:"Primera versión en ChatGPT, con los datos reales del programa."},
+        {w:"Septiembre 2026",t:"Migración a infraestructura propia",s:"Código ordenado en GitHub, publicación en Vercel, versión en castellano y presupuesto por entidad."},
+        {w:"Septiembre 2026",t:"Edición por el equipo",s:"Área privada con contraseña, base de datos en Frankfurt e historial de versiones."}
+      ]},
+    next:{eyebrow:"05 · Lo que viene",title:"Próximos pasos",
+      items:[
+        {t:"Agenda sincronizada",d:"Que los próximos pasos del cuadro salgan del calendario compartido del programa."},
+        {t:"Informes de justificación",d:"Generar cada mes un resumen de proyectos, indicadores y presupuesto listo para la Generalitat."},
+        {t:"Noticias y agenda en la web",d:"Una sección editable por el equipo, como el cuadro de seguimiento."},
+        {t:"Abrir el acceso al equipo",d:"Que cada entidad actualice sus propios datos."}
+      ]},
+    foot:{eyebrow:"Contacto",note:"Capturas con datos de ejemplo e importes ocultos. Sin datos personales de participantes."}
+  },
+
+  en:{
+    title:"La Descomunal — case study · Magdalena Ayerra",
+    back:"← Back to CV",
+    eyebrow:"Case study · 2026",
+    h1sub:"tools for a public programme",
+    lede:"I designed and built, with AI assistants, the digital tools the programme I co-lead was missing.",
+    intro:"La Descomunal is a <strong>social and solidarity economy</strong> programme funded by the Government of Catalonia in the most vulnerable neighbourhoods of Lleida, Spain. As co-coordinator, I needed a single place to see <strong>how projects, indicators and budget are progressing</strong>, and a way to show it to others. That tool didn't exist, so I built it.",
+    ledger:[
+      {n:"9",c:"projects tracked in a single dashboard"},
+      {n:"28",c:"indicators with committed minimum and target"},
+      {n:"5",c:"consortium organisations"},
+      {n:"€350K",c:"two-year budget, by organisation and year"}
+    ],
+    ctx:{eyebrow:"01 · Starting point",title:"A demanding programme with no tools built for it",
+      text:["The programme brings together five organisations —a cooperative, an education foundation, a sports club, a cultural association and the City Council— running nine projects between 2026 and 2028, with the obligation to <strong>account for every euro and every indicator</strong> to the regional government.",
+            "Monitoring was scattered across documents, emails and meetings. The steering committee has no time for long reports, and the official website, run by an external provider, was visited by no one."],
+      pull:"The challenge wasn't technical: it was making the programme's work visible to decision-makers with little time, without depending on anyone."},
+    dash:{eyebrow:"02 · In use",title:"Programme monitoring dashboard",
+      text:["A web dashboard in Catalan and Spanish with five views: <strong>summary</strong>, <strong>projects</strong> with their activity log, a 2026–2028 <strong>timeline</strong>, <strong>indicators</strong> against minimums and targets, and <strong>budget</strong> by organisation and year. The team updates it from a private area, without touching code."],
+      shots:[
+        {k:"resum",c:"Summary: status of the nine projects and overall progress."},
+        {k:"cronograma",c:"2026–2028 timeline with each project's progress and milestones."},
+        {k:"detall",c:"Project sheet with lead organisations, next milestone and activities."},
+        {k:"pressupost",c:"Budget with amounts hidden (eye toggle). Sample data."},
+        {k:"admin",c:"Password-protected editing area: the team updates figures and gets a warning if a year goes over budget. Sample data."},
+        {k:"mobil",c:"Mobile view.",phone:true}
+      ],
+      decisions:[
+        {t:"Privacy by design",d:"For organisations with a single paid staff member, showing payroll would reveal a salary. The public view only shows totals per organisation and the payroll/activities split for the whole programme; amounts can be hidden with one click."},
+        {t:"Team-editable, not dependent on me",d:"A password-protected area lets the team update budget, projects, indicators and agenda. Every save keeps the previous version (the last 50), so mistakes can be undone."},
+        {t:"Data kept in Europe",d:"Database and server in Frankfurt, consistent with GDPR and with a Catalan public programme."},
+        {t:"Bilingual and off search engines",d:"All content in Catalan and Spanish. The site is not indexed: it's shared with the people who need it."}
+      ]},
+    web:{eyebrow:"03 · Proposal",title:"New institutional website",
+      text:["A full redesign of La Descomunal's website: visual identity, content architecture, Catalan and Spanish versions and a dedicated page for Nova Essència, the women's entrepreneurship project. I then rebuilt it as maintainable source code: <strong>mobile-friendly navigation</strong>, optimised images (one poster went from 1.4 MB to 93 KB) and automatic publishing."],
+      shots:[{k:"webPortada",c:"Proposal home page."},{k:"webMobil",c:"Mobile menu.",phone:true}],
+      link:"See the published proposal ↗"},
+    how:{eyebrow:"04 · Method",title:"How I built it",
+      text:["I'm not a developer. <strong>I define what's needed, make the decisions and check the result</strong>; AI assistants write the code. I started with prototypes in ChatGPT and Codex, then, with Claude, moved everything to infrastructure I own: code on GitHub, hosting on Vercel and GitHub Pages, and a database in the EU.",
+            "What mattered most wasn't the code but the judgement: which data to show and which not, who can edit, how to recover from a mistake, and how the tool keeps working without me."],
+      stackTitle:"Stack",
+      stack:["Next.js","React","Astro","Vercel","GitHub Pages","Upstash Redis (EU)","Claude","ChatGPT · Codex"],
+      steps:[
+        {w:"August 2026",t:"Website proposal",s:"Design and first version, presented to the committee."},
+        {w:"September 2026",t:"Dashboard prototype",s:"First version in ChatGPT, with the programme's real data."},
+        {w:"September 2026",t:"Move to owned infrastructure",s:"Clean codebase on GitHub, hosting on Vercel, Spanish version and budget by organisation."},
+        {w:"September 2026",t:"Team editing",s:"Password-protected area, database in Frankfurt and version history."}
+      ]},
+    next:{eyebrow:"05 · What's next",title:"Next steps",
+      items:[
+        {t:"Synced agenda",d:"Pull the dashboard's upcoming milestones from the programme's shared calendar."},
+        {t:"Reporting",d:"Generate a monthly summary of projects, indicators and budget, ready for the funder."},
+        {t:"News and agenda on the website",d:"A section the team can edit, like the dashboard."},
+        {t:"Open access to the team",d:"Let each organisation update its own data."}
+      ]},
+    foot:{eyebrow:"Contact",note:"Screenshots use sample data with amounts hidden. No personal data of participants."}
+  },
+
+  ca:{
+    title:"La Descomunal — cas d'estudi · Magdalena Ayerra",
+    back:"← Tornar al CV",
+    eyebrow:"Cas d'estudi · 2026",
+    h1sub:"eines per a un programa públic",
+    lede:"Vaig dissenyar i construir, amb assistents d'IA, les eines digitals que no tenia el programa que coordino.",
+    intro:"La Descomunal és un programa d'<strong>economia social i solidària</strong> finançat per la Generalitat de Catalunya als barris més vulnerables de Lleida. Com a co-coordinadora, necessitava veure en un sol lloc <strong>com avancen els projectes, els indicadors i el pressupost</strong>, i poder explicar-ho cap enfora. Aquesta eina no existia, així que la vaig construir.",
+    ledger:[
+      {n:"9",c:"projectes seguits en un únic quadre"},
+      {n:"28",c:"indicadors amb mínim i òptim compromesos"},
+      {n:"5",c:"entitats del consorci"},
+      {n:"350 K€",c:"de pressupost en dos anys, per entitat i any"}
+    ],
+    ctx:{eyebrow:"01 · El punt de partida",title:"Un programa exigent, sense eines a la seva mida",
+      text:["El programa reuneix cinc organitzacions —una cooperativa, una fundació educativa, un club esportiu, una associació cultural i l'Ajuntament— amb nou projectes en marxa entre 2026 i 2028 i l'obligació de <strong>justificar cada euro i cada indicador</strong> davant la Generalitat.",
+            "El seguiment vivia repartit en documents, correus i reunions. El comitè no té temps per llegir informes llargs, i la web oficial, gestionada per un proveïdor extern, no la consultava ningú."],
+      pull:"El repte no era tècnic: era fer visible la feina del programa per a qui decideix, amb poc temps i sense dependre de ningú."},
+    dash:{eyebrow:"02 · Eina en ús",title:"Quadre de seguiment del programa",
+      text:["Un panell web en català i castellà amb cinc vistes: <strong>resum</strong>, <strong>projectes</strong> amb l'historial d'activitats, <strong>cronograma</strong> 2026–2028, <strong>indicadors</strong> davant els mínims i òptims, i <strong>pressupost</strong> per entitat i any. L'equip l'actualitza des d'una àrea privada, sense tocar codi."],
+      shots:[
+        {k:"resum",c:"Resum: estat dels nou projectes i avanç global."},
+        {k:"cronograma",c:"Cronograma 2026–2028 amb l'avanç de cada projecte i les fites."},
+        {k:"detall",c:"Fitxa de projecte amb responsables, pròxima fita i activitats."},
+        {k:"pressupost",c:"Pressupost amb els imports amagats (botó de l'ull). Dades d'exemple."},
+        {k:"admin",c:"Àrea d'edició amb contrasenya: l'equip actualitza xifres i rep un avís si un any supera el pressupost. Dades d'exemple."},
+        {k:"mobil",c:"Versió mòbil.",phone:true}
+      ],
+      decisions:[
+        {t:"Privacitat des del disseny",d:"A les entitats amb una sola persona contractada, mostrar les nòmines revelaria un sou. La web pública només ensenya el total per entitat i el repartiment nòmines/activitats del conjunt; els imports es poden amagar amb un clic."},
+        {t:"Editable per l'equip, sense dependre de mi",d:"Una àrea amb contrasenya permet actualitzar pressupost, projectes, indicadors i agenda. Cada desat conserva la versió anterior (les últimes 50), així que un error es desfà."},
+        {t:"Dades a Europa",d:"Base de dades i servidor a Frankfurt: coherent amb el RGPD i amb un programa públic català."},
+        {t:"Bilingüe i fora dels cercadors",d:"Tot el contingut en català i castellà. La web no s'indexa: es comparteix amb qui l'ha de veure."}
+      ]},
+    web:{eyebrow:"03 · Proposta",title:"Nova web institucional",
+      text:["Redisseny complet de la web de La Descomunal: identitat visual, arquitectura de continguts, versió en català i castellà i una pàgina pròpia per a Nova Essència, el projecte de dones emprenedores. Després la vaig reconstruir amb codi font mantenible: <strong>menú adaptat a mòbil</strong>, imatges optimitzades (un cartell va passar d'1,4 MB a 93 KB) i publicació automàtica."],
+      shots:[{k:"webPortada",c:"Portada de la proposta."},{k:"webMobil",c:"Menú al mòbil.",phone:true}],
+      link:"Veure la proposta publicada ↗"},
+    how:{eyebrow:"04 · Mètode",title:"Com ho vaig construir",
+      text:["No soc desenvolupadora. <strong>Jo defineixo què cal, prenc les decisions i comprovo el resultat</strong>; els assistents d'IA escriuen el codi. Vaig començar amb prototips a ChatGPT i Codex i després, amb Claude, ho vaig passar tot a infraestructura pròpia: codi a GitHub, publicació a Vercel i GitHub Pages, i base de dades a la UE.",
+            "El que més va pesar no va ser el codi sinó el criteri: quines dades mostrar i quines no, qui pot editar, com es recupera un error i com continua funcionant sense mi."],
+      stackTitle:"Tecnologia",
+      stack:["Next.js","React","Astro","Vercel","GitHub Pages","Upstash Redis (UE)","Claude","ChatGPT · Codex"],
+      steps:[
+        {w:"Agost 2026",t:"Proposta de web",s:"Disseny i primera versió, presentada al comitè."},
+        {w:"Setembre 2026",t:"Prototip del quadre de seguiment",s:"Primera versió a ChatGPT, amb les dades reals del programa."},
+        {w:"Setembre 2026",t:"Migració a infraestructura pròpia",s:"Codi endreçat a GitHub, publicació a Vercel, versió en castellà i pressupost per entitat."},
+        {w:"Setembre 2026",t:"Edició per l'equip",s:"Àrea privada amb contrasenya, base de dades a Frankfurt i historial de versions."}
+      ]},
+    next:{eyebrow:"05 · El que ve",title:"Propers passos",
+      items:[
+        {t:"Agenda sincronitzada",d:"Que els propers passos del quadre surtin del calendari compartit del programa."},
+        {t:"Informes de justificació",d:"Generar cada mes un resum de projectes, indicadors i pressupost a punt per a la Generalitat."},
+        {t:"Notícies i agenda a la web",d:"Una secció editable per l'equip, com el quadre de seguiment."},
+        {t:"Obrir l'accés a l'equip",d:"Que cada entitat actualitzi les seves pròpies dades."}
+      ]},
+    foot:{eyebrow:"Contacte",note:"Captures amb dades d'exemple i imports amagats. Sense dades personals de participants."}
+  }
+};
+
+const $ = id => document.getElementById(id);
+const paras = list => list.map(p => `<p>${p}</p>`).join('');
+const shot = s => `<figure class="${s.phone?'phone':''}"><a href="${SHOTS[s.k]}" target="_blank" rel="noopener"><img src="${SHOTS[s.k]}" alt="${s.c}" loading="lazy"></a><figcaption>${s.c}</figcaption></figure>`;
+
+function render(code){
+  const d = DATA[code];
+  document.documentElement.lang = code;
+  document.title = d.title;
+  $('back').textContent = d.back;
+  $('back').href = `../?lang=${code}`;
+  $('eyebrow').textContent = d.eyebrow;
+  $('h1-sub').textContent = d.h1sub;
+  $('lede').textContent = d.lede;
+  $('intro').innerHTML = d.intro;
+  $('ledger').innerHTML = d.ledger.map(l => `<div class="ledger-item"><div class="ledger-num">${l.n}</div><div class="ledger-cap">${l.c}</div></div>`).join('');
+
+  $('ctx-eyebrow').textContent = d.ctx.eyebrow; $('ctx-title').textContent = d.ctx.title;
+  $('ctx-text').innerHTML = paras(d.ctx.text); $('ctx-pull').textContent = d.ctx.pull;
+
+  $('dash-eyebrow').textContent = d.dash.eyebrow; $('dash-title').textContent = d.dash.title;
+  $('dash-text').innerHTML = paras(d.dash.text);
+  $('dash-shots').innerHTML = d.dash.shots.map(shot).join('');
+  $('dash-decisions').innerHTML = d.dash.decisions.map(x => `<div class="card"><h4>${x.t}</h4><p>${x.d}</p></div>`).join('');
+
+  $('web-eyebrow').textContent = d.web.eyebrow; $('web-title').textContent = d.web.title;
+  $('web-text').innerHTML = paras(d.web.text);
+  $('web-shots').innerHTML = d.web.shots.map(shot).join('');
+  $('web-link').textContent = d.web.link;
+
+  $('how-eyebrow').textContent = d.how.eyebrow; $('how-title').textContent = d.how.title;
+  $('how-text').innerHTML = paras(d.how.text);
+  $('stack-title').textContent = d.how.stackTitle;
+  $('stack').innerHTML = d.how.stack.map(s => `<span>${s}</span>`).join('');
+  $('steps').innerHTML = d.how.steps.map(s => `<div class="step"><div class="when">${s.w}</div><div class="what">${s.t}<span>${s.s}</span></div></div>`).join('');
+
+  $('next-eyebrow').textContent = d.next.eyebrow; $('next-title').textContent = d.next.title;
+  $('next-list').innerHTML = d.next.items.map(x => `<div class="card c-ochre"><h4>${x.t}</h4><p>${x.d}</p></div>`).join('');
+
+  $('foot-eyebrow').textContent = d.foot.eyebrow; $('foot-note').textContent = d.foot.note;
+  ['es','en','ca'].forEach(c => $('btn-'+c).setAttribute('aria-pressed', c === code));
+  try { history.replaceState(null, '', `?lang=${code}`); } catch (e) {}
+}
+
+['es','en','ca'].forEach(c => $('btn-'+c).addEventListener('click', () => render(c)));
+const requested = new URLSearchParams(location.search).get('lang');
+render(DATA[requested] ? requested : 'es');
+</script>
+</body>
+</html>
