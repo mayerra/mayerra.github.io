@@ -66,6 +66,15 @@
   figure img{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:1px}
   figcaption{font-size:12.5px;color:var(--ink-soft);margin-top:9px;line-height:1.45}
   figure.phone img{max-width:300px;margin:0 auto}
+  #compare-title{margin-top:30px}
+  .compare-row{margin-top:16px}
+  .compare-label{font-family:var(--display);font-size:17px;font-weight:650;margin-bottom:10px}
+  .compare-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .compare-pair.single{grid-template-columns:1fr}
+  .compare-phone .compare-pair{max-width:680px}
+  .compare-phone .compare-pair.single{max-width:340px}
+  figure .badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;margin-bottom:9px;border-radius:2px;background:rgba(76,100,89,.14);color:var(--ink-soft)}
+  figure .badge-new{background:rgba(23,96,74,.13);color:var(--green)}
 
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .card{background:var(--card);border:1px solid var(--rule);border-left:2.5px solid var(--green-mid);padding:20px 20px 22px;border-radius:2px}
@@ -87,6 +96,8 @@
 
   @media (max-width:820px){
     .cols,.grid2,.shots,.shots.with-phone{grid-template-columns:1fr}
+    .compare-pair{gap:10px}
+    .compare-row:not(.compare-phone) .compare-pair{grid-template-columns:1fr}
     .ledger{grid-template-columns:1fr 1fr}
     .ledger-item:nth-child(3){padding-left:0;border-left:0}
     .ledger-item:nth-child(n+3){border-top:1px solid var(--rule)}
@@ -140,7 +151,8 @@
     <div class="section-head"><div class="eyebrow" id="web-eyebrow"></div><h2 id="web-title"></h2></div>
     <div class="tool">
       <div class="tool-head"><div class="prose" id="web-text"></div></div>
-      <div class="shots with-phone" id="web-shots"></div>
+      <div class="eyebrow" id="compare-title"></div>
+      <div id="compare"></div>
       <p style="margin-top:16px"><a class="tool-link" id="web-link" href="https://mayerra.github.io/ladescomunal/" target="_blank" rel="noopener"></a></p>
     </div>
   </section>
@@ -181,7 +193,9 @@
 const SHOTS = {
   resum:"img/seg-resum.webp", cronograma:"img/seg-cronograma.webp", detall:"img/seg-detall.webp",
   pressupost:"img/seg-pressupost.webp", admin:"img/seg-admin.webp", mobil:"img/seg-mobil.webp",
-  webPortada:"img/web-portada.webp", webMobil:"img/web-mobil.webp"
+  webPortada:"img/web-portada.webp", webMobil:"img/web-mobil.webp",
+  // Web oficial actual (ladescomunal.cat). Si una no hi és, la comparació es mostra sense.
+  antesWeb:"img/antes-web.webp", antesMovil:""
 };
 
 const DATA = {
@@ -200,7 +214,7 @@ const DATA = {
     ],
     ctx:{eyebrow:"01 · El punto de partida",title:"Un programa exigente, sin herramientas a su medida",
       text:["El programa reúne a cinco organizaciones —una cooperativa, una fundación educativa, un club deportivo, una asociación cultural y el Ayuntamiento— con nueve proyectos en marcha entre 2026 y 2028 y la obligación de <strong>justificar cada euro y cada indicador</strong> ante la Generalitat.",
-            "El seguimiento vivía repartido en documentos, correos y reuniones. El comité no tiene tiempo para leer informes largos, y la web oficial, gestionada por un proveedor externo, no la consultaba nadie."],
+            "El seguimiento vivía repartido en documentos, correos y reuniones. El comité no tiene tiempo para leer informes largos, y la web oficial, gestionada por un proveedor externo, estaba desactualizada y no se usaba como canal de comunicación."],
       pull:"El reto no era técnico: era hacer visible el trabajo del programa para quien decide, con poco tiempo y sin depender de nadie."},
     dash:{eyebrow:"02 · Herramienta en uso",title:"Cuadro de seguimiento del programa",
       text:["Un panel web en catalán y castellano con cinco vistas: <strong>resumen</strong>, <strong>proyectos</strong> con su historial de actividades, <strong>cronograma</strong> 2026–2028, <strong>indicadores</strong> frente a sus mínimos y óptimos, y <strong>presupuesto</strong> por entidad y año. El equipo lo actualiza desde un área privada, sin tocar código."],
@@ -220,7 +234,7 @@ const DATA = {
       ]},
     web:{eyebrow:"03 · Propuesta",title:"Nueva web institucional",
       text:["Rediseño completo de la web de La Descomunal: identidad visual, arquitectura de contenidos, versión en catalán y castellano y una página propia para Nova Essència, el proyecto de mujeres emprendedoras. Después la reconstruí con código fuente mantenible: <strong>menú adaptado a móvil</strong>, imágenes optimizadas (un cartel pasó de 1,4 MB a 93 KB) y publicación automática."],
-      shots:[{k:"webPortada",c:"Portada de la propuesta."},{k:"webMobil",c:"Menú en móvil.",phone:true}],
+      compare:{title:"Antes y después",before:"Web actual",after:"Propuesta",desktop:"Ordenador",mobile:"Móvil"},
       link:"Ver la propuesta publicada ↗"},
     how:{eyebrow:"04 · Método",title:"Cómo lo construí",
       text:["No soy desarrolladora. <strong>Yo defino qué hace falta, tomo las decisiones y compruebo el resultado</strong>; los asistentes de IA escriben el código. Empecé con prototipos en ChatGPT y Codex y después, con Claude, pasé todo a infraestructura propia: código en GitHub, publicación en Vercel y GitHub Pages, y base de datos en la UE.",
@@ -258,7 +272,7 @@ const DATA = {
     ],
     ctx:{eyebrow:"01 · Starting point",title:"A demanding programme with no tools built for it",
       text:["The programme brings together five organisations —a cooperative, an education foundation, a sports club, a cultural association and the City Council— running nine projects between 2026 and 2028, with the obligation to <strong>account for every euro and every indicator</strong> to the regional government.",
-            "Monitoring was scattered across documents, emails and meetings. The steering committee has no time for long reports, and the official website, run by an external provider, was visited by no one."],
+            "Monitoring was scattered across documents, emails and meetings. The steering committee has no time for long reports, and the official website, run by an external provider, was out of date and not used as a communication channel."],
       pull:"The challenge wasn't technical: it was making the programme's work visible to decision-makers with little time, without depending on anyone."},
     dash:{eyebrow:"02 · In use",title:"Programme monitoring dashboard",
       text:["A web dashboard in Catalan and Spanish with five views: <strong>summary</strong>, <strong>projects</strong> with their activity log, a 2026–2028 <strong>timeline</strong>, <strong>indicators</strong> against minimums and targets, and <strong>budget</strong> by organisation and year. The team updates it from a private area, without touching code."],
@@ -278,7 +292,7 @@ const DATA = {
       ]},
     web:{eyebrow:"03 · Proposal",title:"New institutional website",
       text:["A full redesign of La Descomunal's website: visual identity, content architecture, Catalan and Spanish versions and a dedicated page for Nova Essència, the women's entrepreneurship project. I then rebuilt it as maintainable source code: <strong>mobile-friendly navigation</strong>, optimised images (one poster went from 1.4 MB to 93 KB) and automatic publishing."],
-      shots:[{k:"webPortada",c:"Proposal home page."},{k:"webMobil",c:"Mobile menu.",phone:true}],
+      compare:{title:"Before and after",before:"Current website",after:"Proposal",desktop:"Desktop",mobile:"Mobile"},
       link:"See the published proposal ↗"},
     how:{eyebrow:"04 · Method",title:"How I built it",
       text:["I'm not a developer. <strong>I define what's needed, make the decisions and check the result</strong>; AI assistants write the code. I started with prototypes in ChatGPT and Codex, then, with Claude, moved everything to infrastructure I own: code on GitHub, hosting on Vercel and GitHub Pages, and a database in the EU.",
@@ -316,7 +330,7 @@ const DATA = {
     ],
     ctx:{eyebrow:"01 · El punt de partida",title:"Un programa exigent, sense eines a la seva mida",
       text:["El programa reuneix cinc organitzacions —una cooperativa, una fundació educativa, un club esportiu, una associació cultural i l'Ajuntament— amb nou projectes en marxa entre 2026 i 2028 i l'obligació de <strong>justificar cada euro i cada indicador</strong> davant la Generalitat.",
-            "El seguiment vivia repartit en documents, correus i reunions. El comitè no té temps per llegir informes llargs, i la web oficial, gestionada per un proveïdor extern, no la consultava ningú."],
+            "El seguiment vivia repartit en documents, correus i reunions. El comitè no té temps per llegir informes llargs, i la web oficial, gestionada per un proveïdor extern, estava desactualitzada i no s'utilitzava com a canal de comunicació."],
       pull:"El repte no era tècnic: era fer visible la feina del programa per a qui decideix, amb poc temps i sense dependre de ningú."},
     dash:{eyebrow:"02 · Eina en ús",title:"Quadre de seguiment del programa",
       text:["Un panell web en català i castellà amb cinc vistes: <strong>resum</strong>, <strong>projectes</strong> amb l'historial d'activitats, <strong>cronograma</strong> 2026–2028, <strong>indicadors</strong> davant els mínims i òptims, i <strong>pressupost</strong> per entitat i any. L'equip l'actualitza des d'una àrea privada, sense tocar codi."],
@@ -336,7 +350,7 @@ const DATA = {
       ]},
     web:{eyebrow:"03 · Proposta",title:"Nova web institucional",
       text:["Redisseny complet de la web de La Descomunal: identitat visual, arquitectura de continguts, versió en català i castellà i una pàgina pròpia per a Nova Essència, el projecte de dones emprenedores. Després la vaig reconstruir amb codi font mantenible: <strong>menú adaptat a mòbil</strong>, imatges optimitzades (un cartell va passar d'1,4 MB a 93 KB) i publicació automàtica."],
-      shots:[{k:"webPortada",c:"Portada de la proposta."},{k:"webMobil",c:"Menú al mòbil.",phone:true}],
+      compare:{title:"Abans i després",before:"Web actual",after:"Proposta",desktop:"Ordinador",mobile:"Mòbil"},
       link:"Veure la proposta publicada ↗"},
     how:{eyebrow:"04 · Mètode",title:"Com ho vaig construir",
       text:["No soc desenvolupadora. <strong>Jo defineixo què cal, prenc les decisions i comprovo el resultat</strong>; els assistents d'IA escriuen el codi. Vaig començar amb prototips a ChatGPT i Codex i després, amb Claude, ho vaig passar tot a infraestructura pròpia: codi a GitHub, publicació a Vercel i GitHub Pages, i base de dades a la UE.",
@@ -386,7 +400,16 @@ function render(code){
 
   $('web-eyebrow').textContent = d.web.eyebrow; $('web-title').textContent = d.web.title;
   $('web-text').innerHTML = paras(d.web.text);
-  $('web-shots').innerHTML = d.web.shots.map(shot).join('');
+  const cmp = d.web.compare;
+  const side = (key, label, phone) => SHOTS[key]
+    ? `<figure class="${phone ? 'phone' : ''}"><span class="badge${key.startsWith('antes') ? '' : ' badge-new'}">${label}</span><a href="${SHOTS[key]}" target="_blank" rel="noopener"><img src="${SHOTS[key]}" alt="${label}" loading="lazy"></a></figure>` : '';
+  const rows = [[cmp.desktop, 'antesWeb', 'webPortada', false], [cmp.mobile, 'antesMovil', 'webMobil', true]];
+  $('compare-title').textContent = cmp.title;
+  $('compare').innerHTML = rows.map(([label, before, after, phone]) => `
+    <div class="compare-row${phone ? ' compare-phone' : ''}">
+      <div class="compare-label">${label}</div>
+      <div class="compare-pair${SHOTS[before] ? '' : ' single'}">${side(before, cmp.before, phone)}${side(after, cmp.after, phone)}</div>
+    </div>`).join('');
   $('web-link').textContent = d.web.link;
 
   $('how-eyebrow').textContent = d.how.eyebrow; $('how-title').textContent = d.how.title;
