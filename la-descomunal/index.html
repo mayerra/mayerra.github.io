@@ -216,19 +216,19 @@ const DATA = {
       text:["El programa reúne a cinco organizaciones —una cooperativa, una fundación educativa, un club deportivo, una asociación cultural y el Ayuntamiento— con nueve proyectos en marcha entre 2026 y 2028 y la obligación de <strong>justificar cada euro y cada indicador</strong> ante la Generalitat.",
             "El seguimiento vivía repartido en documentos, correos y reuniones. El comité no tiene tiempo para leer informes largos, y la web oficial, gestionada por un proveedor externo, estaba desactualizada y no se usaba como canal de comunicación."],
       pull:"El reto no era técnico: era hacer visible el trabajo del programa para quien decide, con poco tiempo y sin depender de nadie."},
-    dash:{eyebrow:"02 · Herramienta en uso",title:"Cuadro de seguimiento del programa",
-      text:["Un panel web en catalán y castellano con cinco vistas: <strong>resumen</strong>, <strong>proyectos</strong> con su historial de actividades, <strong>cronograma</strong> 2026–2028, <strong>indicadores</strong> frente a sus mínimos y óptimos, y <strong>presupuesto</strong> por entidad y año. El equipo lo actualiza desde un área privada, sin tocar código."],
+    dash:{eyebrow:"02 · En desarrollo",title:"Cuadro de seguimiento del programa",
+      text:["Un panel web en catalán y castellano con cinco vistas: <strong>resumen</strong>, <strong>proyectos</strong> con su historial de actividades, <strong>cronograma</strong> 2026–2028, <strong>indicadores</strong> frente a sus mínimos y óptimos, y <strong>presupuesto</strong> por entidad y año. Está pensado para que el equipo lo actualice desde un área privada, sin tocar código."],
       shots:[
         {k:"resum",c:"Resumen: estado de los nueve proyectos y avance global."},
         {k:"cronograma",c:"Cronograma 2026–2028 con el avance de cada proyecto e hitos."},
         {k:"detall",c:"Ficha de proyecto con responsables, próxima fecha clave y actividades."},
         {k:"pressupost",c:"Presupuesto con los importes ocultos (botón del ojo). Datos de ejemplo."},
-        {k:"admin",c:"Área de edición con contraseña: el equipo actualiza cifras y avisa si un año se pasa del presupuesto. Datos de ejemplo."},
+        {k:"admin",c:"Área de edición con contraseña: permite actualizar cifras y avisa si un año se pasa del presupuesto. Datos de ejemplo."},
         {k:"mobil",c:"Versión móvil.",phone:true}
       ],
       decisions:[
         {t:"Privacidad desde el diseño",d:"En las entidades con una sola persona contratada, mostrar las nóminas revelaría un sueldo. La web pública solo enseña el total por entidad y el reparto nóminas/actividades del conjunto; los importes se pueden ocultar con un clic."},
-        {t:"Editable por el equipo, sin depender de mí",d:"Un área con contraseña permite actualizar presupuesto, proyectos, indicadores y agenda. Cada guardado conserva la versión anterior (las últimas 50), así que un error se deshace."},
+        {t:"Pensado para que lo edite el equipo, sin depender de mí",d:"Un área con contraseña permite actualizar presupuesto, proyectos, indicadores y agenda. Cada guardado conserva la versión anterior (las últimas 50), así que un error se deshace."},
         {t:"Datos en Europa",d:"Base de datos y servidor en Frankfurt: coherente con el RGPD y con un programa público catalán."},
         {t:"Bilingüe y fuera de los buscadores",d:"Todo el contenido en catalán y castellano. La web no se indexa: se comparte con quien tiene que verla."}
       ]},
@@ -242,7 +242,7 @@ const DATA = {
       stackTitle:"Tecnología",
       stack:["Next.js","React","Astro","Vercel","GitHub Pages","Upstash Redis (UE)","Claude","ChatGPT · Codex"],
       steps:[
-        {w:"Agosto 2026",t:"Propuesta de web",s:"Diseño y primera versión, presentada al comité."},
+        {w:"Agosto 2026",t:"Propuesta de web",s:"Diseño y primera versión, presentada al comité; pendiente de aprobación."},
         {w:"Septiembre 2026",t:"Prototipo del cuadro de seguimiento",s:"Primera versión en ChatGPT, con los datos reales del programa."},
         {w:"Septiembre 2026",t:"Migración a infraestructura propia",s:"Código ordenado en GitHub, publicación en Vercel, versión en castellano y presupuesto por entidad."},
         {w:"Septiembre 2026",t:"Edición por el equipo",s:"Área privada con contraseña, base de datos en Frankfurt e historial de versiones."}
@@ -274,19 +274,19 @@ const DATA = {
       text:["The programme brings together five organisations —a cooperative, an education foundation, a sports club, a cultural association and the City Council— running nine projects between 2026 and 2028, with the obligation to <strong>account for every euro and every indicator</strong> to the regional government.",
             "Monitoring was scattered across documents, emails and meetings. The steering committee has no time for long reports, and the official website, run by an external provider, was out of date and not used as a communication channel."],
       pull:"The challenge wasn't technical: it was making the programme's work visible to decision-makers with little time, without depending on anyone."},
-    dash:{eyebrow:"02 · In use",title:"Programme monitoring dashboard",
-      text:["A web dashboard in Catalan and Spanish with five views: <strong>summary</strong>, <strong>projects</strong> with their activity log, a 2026–2028 <strong>timeline</strong>, <strong>indicators</strong> against minimums and targets, and <strong>budget</strong> by organisation and year. The team updates it from a private area, without touching code."],
+    dash:{eyebrow:"02 · In development",title:"Programme monitoring dashboard",
+      text:["A web dashboard in Catalan and Spanish with five views: <strong>summary</strong>, <strong>projects</strong> with their activity log, a 2026–2028 <strong>timeline</strong>, <strong>indicators</strong> against minimums and targets, and <strong>budget</strong> by organisation and year. It's designed for the team to update from a private area, without touching code."],
       shots:[
         {k:"resum",c:"Summary: status of the nine projects and overall progress."},
         {k:"cronograma",c:"2026–2028 timeline with each project's progress and milestones."},
         {k:"detall",c:"Project sheet with lead organisations, next milestone and activities."},
         {k:"pressupost",c:"Budget with amounts hidden (eye toggle). Sample data."},
-        {k:"admin",c:"Password-protected editing area: the team updates figures and gets a warning if a year goes over budget. Sample data."},
+        {k:"admin",c:"Password-protected editing area: figures can be updated, with a warning if a year goes over budget. Sample data."},
         {k:"mobil",c:"Mobile view.",phone:true}
       ],
       decisions:[
         {t:"Privacy by design",d:"For organisations with a single paid staff member, showing payroll would reveal a salary. The public view only shows totals per organisation and the payroll/activities split for the whole programme; amounts can be hidden with one click."},
-        {t:"Team-editable, not dependent on me",d:"A password-protected area lets the team update budget, projects, indicators and agenda. Every save keeps the previous version (the last 50), so mistakes can be undone."},
+        {t:"Built for the team to edit, not dependent on me",d:"A password-protected area lets the team update budget, projects, indicators and agenda. Every save keeps the previous version (the last 50), so mistakes can be undone."},
         {t:"Data kept in Europe",d:"Database and server in Frankfurt, consistent with GDPR and with a Catalan public programme."},
         {t:"Bilingual and off search engines",d:"All content in Catalan and Spanish. The site is not indexed: it's shared with the people who need it."}
       ]},
@@ -300,7 +300,7 @@ const DATA = {
       stackTitle:"Stack",
       stack:["Next.js","React","Astro","Vercel","GitHub Pages","Upstash Redis (EU)","Claude","ChatGPT · Codex"],
       steps:[
-        {w:"August 2026",t:"Website proposal",s:"Design and first version, presented to the committee."},
+        {w:"August 2026",t:"Website proposal",s:"Design and first version, presented to the committee; pending approval."},
         {w:"September 2026",t:"Dashboard prototype",s:"First version in ChatGPT, with the programme's real data."},
         {w:"September 2026",t:"Move to owned infrastructure",s:"Clean codebase on GitHub, hosting on Vercel, Spanish version and budget by organisation."},
         {w:"September 2026",t:"Team editing",s:"Password-protected area, database in Frankfurt and version history."}
@@ -332,19 +332,19 @@ const DATA = {
       text:["El programa reuneix cinc organitzacions —una cooperativa, una fundació educativa, un club esportiu, una associació cultural i l'Ajuntament— amb nou projectes en marxa entre 2026 i 2028 i l'obligació de <strong>justificar cada euro i cada indicador</strong> davant la Generalitat.",
             "El seguiment vivia repartit en documents, correus i reunions. El comitè no té temps per llegir informes llargs, i la web oficial, gestionada per un proveïdor extern, estava desactualitzada i no s'utilitzava com a canal de comunicació."],
       pull:"El repte no era tècnic: era fer visible la feina del programa per a qui decideix, amb poc temps i sense dependre de ningú."},
-    dash:{eyebrow:"02 · Eina en ús",title:"Quadre de seguiment del programa",
-      text:["Un panell web en català i castellà amb cinc vistes: <strong>resum</strong>, <strong>projectes</strong> amb l'historial d'activitats, <strong>cronograma</strong> 2026–2028, <strong>indicadors</strong> davant els mínims i òptims, i <strong>pressupost</strong> per entitat i any. L'equip l'actualitza des d'una àrea privada, sense tocar codi."],
+    dash:{eyebrow:"02 · En desenvolupament",title:"Quadre de seguiment del programa",
+      text:["Un panell web en català i castellà amb cinc vistes: <strong>resum</strong>, <strong>projectes</strong> amb l'historial d'activitats, <strong>cronograma</strong> 2026–2028, <strong>indicadors</strong> davant els mínims i òptims, i <strong>pressupost</strong> per entitat i any. Està pensat perquè l'equip l'actualitzi des d'una àrea privada, sense tocar codi."],
       shots:[
         {k:"resum",c:"Resum: estat dels nou projectes i avanç global."},
         {k:"cronograma",c:"Cronograma 2026–2028 amb l'avanç de cada projecte i les fites."},
         {k:"detall",c:"Fitxa de projecte amb responsables, pròxima fita i activitats."},
         {k:"pressupost",c:"Pressupost amb els imports amagats (botó de l'ull). Dades d'exemple."},
-        {k:"admin",c:"Àrea d'edició amb contrasenya: l'equip actualitza xifres i rep un avís si un any supera el pressupost. Dades d'exemple."},
+        {k:"admin",c:"Àrea d'edició amb contrasenya: permet actualitzar xifres i avisa si un any supera el pressupost. Dades d'exemple."},
         {k:"mobil",c:"Versió mòbil.",phone:true}
       ],
       decisions:[
         {t:"Privacitat des del disseny",d:"A les entitats amb una sola persona contractada, mostrar les nòmines revelaria un sou. La web pública només ensenya el total per entitat i el repartiment nòmines/activitats del conjunt; els imports es poden amagar amb un clic."},
-        {t:"Editable per l'equip, sense dependre de mi",d:"Una àrea amb contrasenya permet actualitzar pressupost, projectes, indicadors i agenda. Cada desat conserva la versió anterior (les últimes 50), així que un error es desfà."},
+        {t:"Pensat perquè l'editi l'equip, sense dependre de mi",d:"Una àrea amb contrasenya permet actualitzar pressupost, projectes, indicadors i agenda. Cada desat conserva la versió anterior (les últimes 50), així que un error es desfà."},
         {t:"Dades a Europa",d:"Base de dades i servidor a Frankfurt: coherent amb el RGPD i amb un programa públic català."},
         {t:"Bilingüe i fora dels cercadors",d:"Tot el contingut en català i castellà. La web no s'indexa: es comparteix amb qui l'ha de veure."}
       ]},
@@ -358,7 +358,7 @@ const DATA = {
       stackTitle:"Tecnologia",
       stack:["Next.js","React","Astro","Vercel","GitHub Pages","Upstash Redis (UE)","Claude","ChatGPT · Codex"],
       steps:[
-        {w:"Agost 2026",t:"Proposta de web",s:"Disseny i primera versió, presentada al comitè."},
+        {w:"Agost 2026",t:"Proposta de web",s:"Disseny i primera versió, presentada al comitè; pendent d'aprovació."},
         {w:"Setembre 2026",t:"Prototip del quadre de seguiment",s:"Primera versió a ChatGPT, amb les dades reals del programa."},
         {w:"Setembre 2026",t:"Migració a infraestructura pròpia",s:"Codi endreçat a GitHub, publicació a Vercel, versió en castellà i pressupost per entitat."},
         {w:"Setembre 2026",t:"Edició per l'equip",s:"Àrea privada amb contrasenya, base de dades a Frankfurt i historial de versions."}
